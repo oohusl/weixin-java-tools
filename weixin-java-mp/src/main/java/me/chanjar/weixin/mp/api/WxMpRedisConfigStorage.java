@@ -24,6 +24,10 @@ public class WxMpRedisConfigStorage extends WxMpInMemoryConfigStorage {
         redisTemplate.opsForValue().set(ACCESS_TOKEN_KEY + getAppId(), accessToken);
     }
 
+    public String getJsapiTicketKey() {
+        return (String) redisTemplate.opsForValue().get(JSAPI_TICKET_KEY + getAppId());
+    }
+
     public synchronized void updateJsapiTicket(String jsapiTicket, int expiresInSeconds) {
         this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000l;
         redisTemplate.opsForValue().set(JSAPI_TICKET_KEY + getAppId(), jsapiTicket);
